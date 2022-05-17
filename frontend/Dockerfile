@@ -1,13 +1,15 @@
 FROM node:15.14-alpine
 
-WORKDIR /app
+WORKDIR /node/app
 
 EXPOSE 3000
+
+# RUN mkdir -p /app/node_modules/.cache && chmod -R 777 /app/node_modules/
 
 COPY package.json package-lock.json ./
 
 RUN npm install --silent
 
-COPY . ./
+COPY --chown=node:node . ./
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
